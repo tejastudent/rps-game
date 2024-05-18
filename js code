@@ -1,0 +1,109 @@
+let user_score=0;
+let comp_score=0;
+let choices=document.querySelectorAll(".choice");
+
+
+const computerchoice=()=>{
+    const options=["rock","paper","scissor"];
+    const radidx=Math.floor(Math.random()*3);
+    return options[radidx];
+};
+
+const playgame=(userchoice)=>{
+    let d=document.querySelector("#result1");
+    const cmpchoice=computerchoice();
+    if(userchoice===cmpchoice)
+    {
+        
+        d.innerText="Its Draw! Play Again!";
+        d.style.backgroundColor="grey";
+    
+        d.style.border="3px solid black";
+             comp_score--;
+    }
+    else{
+        let userwin=true;
+        if(userchoice=="rock")
+        {
+            userwin=cmpchoice==="paper"?false:true;
+            if(userwin)
+            {
+                d.innerText="You win! your rock beats scissors";
+                d.style.backgroundColor="cadetblue";
+                
+                d.style.border="3px solid black";
+            }
+            else{
+                d.innerText="You Lose! paper beats your rock";
+                d.style.backgroundColor="indigo";
+                d.style.border="3px solid black";
+            }
+        }
+        else if(userchoice==="paper"){
+                 userwin=cmpchoice==="scissor"?false:true;
+                 if(userwin)
+            {
+                d.innerText="You win! Your paper beats rock";
+                d.style.backgroundColor="cadetblue";
+        
+                d.style.border="3px solid black";
+            }
+            else{
+                d.innerText="You Lose! scissor beats your paper";
+                d.style.backgroundColor="indigo";
+                d.style.border="3px solid black";
+            }
+        }
+        else{
+            userwin=cmpchoice==="rock"?false:true;
+            if(userwin)
+            {
+                d.innerText="You win! Your scissor beats paper";
+                d.style.backgroundColor="cadetblue";
+                
+                d.style.border="3px solid black";
+            }
+            else{
+                d.innerText="You Lose! rock beats your paper";
+                d.style.backgroundColor="indigo";
+                d.style.border="3px solid black";
+            }
+        }
+        return userwin;
+    }
+};
+choices.forEach((val)=>{
+    val.addEventListener("click",()=>{
+        const userchoice=val.getAttribute("id");
+      let sc= playgame(userchoice);
+      
+      if(sc===true)
+      {
+        user_score++;
+        let u=document.querySelector("#userpoints");
+        u.innerText=`${user_score}`;
+      }
+      else{
+        comp_score++;
+        let co=document.querySelector("#compoints");
+        co.innerText=`${comp_score}`;
+      }
+
+
+    });
+    
+    
+});
+let c=document.querySelector("button");
+c.addEventListener("click",()=>{
+    user_score=0;
+     comp_score=0;
+    let u=document.querySelector("#userpoints");
+        u.innerText=`${user_score}`;
+        let co=document.querySelector("#compoints");
+        co.innerText=`${comp_score}`;
+        let d=document.querySelector("#result1");
+        d.innerText="Play Your Move";
+        
+        
+});
